@@ -16,10 +16,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             // Guardar datos en sesión
             $_SESSION['usuario'] = $usuario['nombre'];
             $_SESSION['rol'] = $usuario['rol'];
+            $_SESSION['id_usuario'] = $usuario['id_usuario'];
 
-            echo "✅ Bienvenido, " . $usuario['nombre'] . " (Rol: " . $usuario['rol'] . ")";
-            // Aquí puedes redirigir según el rol:
-            // if ($usuario['rol'] == 'admin') { header("Location: ../admin/dashboard.php"); }
+            // 🔹 Redirigir según el rol
+            if ($usuario['rol'] == 'admin') {
+                header("Location: ../admin/admin_panel.php");
+                exit();
+            } elseif ($usuario['rol'] == 'estudiante') {
+                header("Location: ../estudiante/estudiante_panel.php");
+                exit();
+            } elseif ($usuario['rol'] == 'tutor') {
+                header("Location: ../tutor/tutor_panel.php");
+                exit();
+            } elseif ($usuario['rol'] == 'empresa') {
+                header("Location: ../empresa/empresa_panel.php");
+                exit();
+            }
         } else {
             echo "❌ Contraseña incorrecta";
         }
